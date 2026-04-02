@@ -2,34 +2,92 @@
 
 ## Project Summary
 
-In this project you will build and explain a small music recommender system.
+In this project, I created a simple music recommender system that suggests songs based on a user's taste profile. It compares song features like genre, mood, energy, and tempo with what the user prefers.
 
-Your goal is to:
+Platforms like Spotify and YouTube use similar ideas. They use collaborative filtering, which looks at other users’ behavior such as likes, skips, and playlists. They also use content-based filtering, which focuses on song features like genre, tempo, and mood.
 
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
-
+This project shows how user data and song features can be used together to generate personalized song recommendations.
 ---
 
 ## How The System Works
 
-Explain your design in plain language.
+## How The System Works
 
-Some prompts to answer:
+In real-world systems like Spotify or YouTube, recommendation engines use both user behavior (likes, skips, playlists) and song features to predict what users will enjoy. They often combine collaborative filtering and content-based filtering to improve recommendations.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
+In this project, the system uses content-based filtering. It compares song features with a user’s preferences to recommend songs that match their taste.
 
-You can include a simple diagram or bullet list if helpful.
+### Features Used
 
----
+- **Song features:** genre, mood, energy, tempo_bpm, valence, danceability, acousticness  
+- **UserProfile features:** preferred genre, preferred mood, target energy level, and preference for acoustic music  
+
+### Scoring Rule
+
+The recommender assigns a score to each song based on how well it matches the user’s preferences.
+
+- **Categorical features (genre, mood):**  
+  If the song matches the user’s preference, it gets a score of 1. Otherwise, it gets 0.
+
+- **Numerical features (energy, tempo, valence):**  
+  The score is based on how close the song’s value is to the user’s preference using:  
+  score = 1 - |song_value - user_value|
+
+- **Weighted total score:**  
+  genre (0.3), mood (0.3), energy (0.2), tempo (0.1), valence (0.1)
+
+### Ranking Rule
+
+After calculating scores for all songs, the system sorts them from highest to lowest score and recommends the top k songs.
+
+### Algorithm Recipe
+
+The recommender system assigns a score to each song based on how well it matches the user’s preferences.
+
+- **+2.0 points for a genre match**  
+  If the song’s genre matches the user’s favorite genre, it receives 2 points.
+
+- **+1.0 point for a mood match**  
+  If the song’s mood matches the user’s preferred mood, it receives 1 point.
+
+- **Similarity score for energy**  
+  The system calculates how close the song’s energy is to the user’s target energy using:  
+  score += (1 - |song_energy - user_energy|)
+
+After calculating the total score for each song, all songs are sorted from highest to lowest score. The system then recommends the top k songs with the highest scores.
+
+### Limitations and Bias
+
+This recommender system has some limitations. It mainly focuses on matching genre and mood, which means it may over-prioritize these features and ignore other important aspects of music. For example, a song with a different genre but a very similar vibe might not be recommended.
+
+The system also uses simple numerical comparisons for features like energy, which may not fully capture how users perceive music. Additionally, because the dataset is small, the recommendations may not be very diverse.
+
+In real-world systems, much larger datasets and more advanced methods are used to reduce bias and improve recommendation quality.
+
+flowchart TD
+    A[Start] --> B["Input: User Preferences<br/>(genre, mood, energy)"]
+    B --> C[Load songs from CSV]
+    C --> D[Initialize empty scores list]
+    D --> E[For each song in songs]
+    E --> F{Genre match?}
+    F -->|Yes| G[genre_score = 2]
+    F -->|No| H[genre_score = 0]
+    G --> I{Mood match?}
+    H --> I
+    I -->|Yes| J[mood_score = 1]
+    I -->|No| K[mood_score = 0]
+    J --> L["energy_similarity = 1 - <br/>abs(energy difference)"]
+    K --> L
+    L --> M["total_score = genre_score <br/>+ mood_score + energy"]
+    M --> N[Store song with score]
+    N --> O{More songs?}
+    O -->|Yes| E
+    O -->|No| P[Sort by score descending]
+    P --> Q[Select top K songs]
+    Q --> R[Output recommendations]
+    R --> S[End]
+    
+
 
 ## Getting Started
 
