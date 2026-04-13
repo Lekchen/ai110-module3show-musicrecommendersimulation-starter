@@ -126,4 +126,7 @@ Prompts:
 - What you learned about recommender systems  
 - Something unexpected or interesting you discovered  
 - How this changed the way you think about music recommendation apps  
-I learned how recommender systems use simple rules to turn user preferences into predictions. One interesting thing I discovered is how much the system depends on certain features like genre and energy. This project helped me understand that real music apps are much more complex and need better data and algorithms to give accurate recommendations.
+My biggest learning moment in this project was understanding how simple scoring rules can still create meaningful recommendations. Even though the algorithm is basic, it was able to suggest songs that felt relevant when the user preferences matched well.
+Using AI tools like Copilot helped me write and modify code faster, especially when implementing and testing changes. However, I had to double-check the results to make sure the logic was correct and matched the assignment requirements.
+One thing that surprised me was how simple algorithms can still “feel” like real recommendations. Even with just genre, mood, and energy, the system could produce reasonable suggestions.
+If I continued this project, I would improve it by adding more features and a larger dataset, and by making the recommendations more diverse so the same songs do not appear repeatedly.
