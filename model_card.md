@@ -70,6 +70,12 @@ Prompts:
 - Cases where the system overfits to one preference  
 - Ways the scoring might unintentionally favor some users  
 
+The recommender system has a limitation because it relies heavily on genre and energy similarity. During the experiment, when the mood feature was removed, the recommendations became less accurate and were mostly based on energy alone.
+
+This creates a bias where songs with similar energy are recommended even if they do not match the user’s mood or genre preference. As a result, the system may ignore important aspects of user taste, leading to less personalized recommendations.
+
+Additionally, the small dataset limits diversity, which can cause the same songs to appear frequently for different users.
+
 ---
 
 ## 7. Evaluation  
